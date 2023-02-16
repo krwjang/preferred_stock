@@ -9,7 +9,7 @@ import plotly.graph_objects as go
 
 
 
-@st.cache_data
+# @st.cache_data
 def read_price(preferred, common, start):
     '''
     우선주티커, 본주티커, 불러오기 시작일자
