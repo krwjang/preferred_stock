@@ -32,7 +32,7 @@ st.markdown("---")   # 구분 가로선
 
 
 st.subheader("삼성전자우/삼성전자 가격비율 추이")
-st.text("개별종목의 시고저종 시점의 비율임 (비율의 시고저종 아님)")
+st.write("개별종목의 시고저종 시점의 비율임 (비율의 시고저종 아님)")
 st.write("마우스 드래그 : 확대 / 더블클릭 : 축소")
 
 fig = go.Figure(data=[go.Candlestick(
@@ -83,5 +83,5 @@ st.markdown("---")   # 구분 가로선
 
 
 st.subheader("삼성전자우/삼성전자 가격비율 데이터")
-st.text("개별종목의 시고저종 시점의 비율임 (OHLCV_avg : 당일 시고저종 평균값)")
+st.write("개별종목의 시고저종 시점의 비율임 (OHLCV_avg : 당일 시고저종 평균값)")
 st.dataframe(df.sort_index(ascending=False))
