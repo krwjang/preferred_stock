@@ -65,7 +65,7 @@ col1, col2, col3 = st.columns(3)
 
 col1.metric("우선주", f"{price_pref[-1]}원", round(price_pref[-1] - price_pref[-2]))
 col2.metric("본주", f"{price_comm[-1]}원", round(price_comm[-1] - price_comm[-2]))
-col3.metric("비율", f"{ratio_last[-1]}%", round(ratio_last[-1] - ratio_last[-2]))
+col3.metric("비율", f"{ratio_last[-1]}%", round(ratio_last[-1] - ratio_last[-2], ndigits=3))
 
 
 st.markdown("---")   # 구분 가로선
