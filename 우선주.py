@@ -7,9 +7,9 @@ import plotly.graph_objects as go
 
 
 # 기초변수 설정
-n_days = 100
+n_days = 365 * 3
 now = datetime.now().date() + timedelta(days=1)
-ago = now - timedelta(days=365*2)
+ago = now - timedelta(days=n_days)
 
 ticker_pref = "005935"
 ticker_comm = "005930"
