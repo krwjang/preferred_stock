@@ -11,23 +11,25 @@ n_days = 100
 now = datetime.now().date() + timedelta(days=1)
 ago = now - timedelta(days=365)
 
+ticker_pref = "005935"
+ticker_comm = "005930"
 
 
 
 
 # @st.cache_data
-def read_price(preferred, common, start=ago, end=now):
+def read_price(preferred, common, start, end):
     '''
     우선주티커, 본주티커, 불러오기 시작일자
     '''
-    preferred = fdr.DataReader(preferred, start)[['Open', 'High', 'Low', 'Close']]
-    common = fdr.DataReader(common, start)[['Open', 'High', 'Low', 'Close']]
+    preferred = fdr.DataReader(preferred, start=start, end=end)[['Open', 'High', 'Low', 'Close']]
+    common = fdr.DataReader(common, , start=start, end=end)[['Open', 'High', 'Low', 'Close']]
     ratio = preferred / common
     ratio["OHLCV_avg"] = (ratio.Open + ratio.High + ratio.Low + ratio.Close) / 4
 
     return ratio
 
-df = read_price("005935", "005930", "2020")
+df = read_price(ticker_pref, ticker_comm, start=ago, end=now)
 
 
 
@@ -51,9 +53,14 @@ fig.update_layout(xaxis_rangeslider_visible=False)
 fig.update_layout(hovermode="x unified")
 st.plotly_chart(fig)
 
+
+
 # 전광판
 
-col1, col2, col3, col4, col5, = st.columns(5)
+preferred
+common
+
+col1, col2, col3 = st.columns(3)
 
 last_sp_1m = mid["1M"].iloc[-1]
 last_sp_2m = mid["2M"].iloc[-1]
