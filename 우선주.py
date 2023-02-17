@@ -6,7 +6,7 @@ pd.options.plotting.backend = "plotly"
 import plotly.graph_objects as go
 
 
-# 기초변수 설정
+# 기초변수 설정 ######################################
 n_days = 365 * 3
 now = datetime.now().date() + timedelta(days=1)
 ago = now - timedelta(days=n_days)
@@ -14,7 +14,7 @@ ago = now - timedelta(days=n_days)
 ticker_pref = "005935"
 ticker_comm = "005930"
 
-
+######################################################
 
 
 # @st.cache_data
@@ -57,24 +57,18 @@ st.plotly_chart(fig)
 
 # 전광판
 
-preferred
-common
+from = now - timedelta(days=5)
+price_pref = fdr.DataReader(ticker_pref, start=from)["Close"]
+price_comm = fdr.DataReader(ticker_comm, start=from)["Close"]
+ratio_last = price_pref / price_comm
 
 col1, col2, col3 = st.columns(3)
 
-last_sp_1m = mid["1M"].iloc[-1]
-last_sp_2m = mid["2M"].iloc[-1]
-last_sp_3m = mid["3M"].iloc[-1]
-last_sp_6m = mid["6M"].iloc[-1]
-last_sp_1y = mid["1Y"].iloc[-1]
 
 
-col1.metric("1개월물", f"{last_sp_1m}원", round(mid["1M"].iloc[-1] - mid["1M"].iloc[-2], ndigits=3))
-col2.metric("2개월물", f"{last_sp_2m}원", round(mid["2M"].iloc[-1] - mid["2M"].iloc[-2], ndigits=3))
-col3.metric("3개월물", f"{last_sp_3m}원", round(mid["3M"].iloc[-1] - mid["3M"].iloc[-2], ndigits=3))
-col4.metric("6개월물", f"{last_sp_6m}원", round(mid["6M"].iloc[-1] - mid["6M"].iloc[-2], ndigits=3))
-col5.metric("1년물", f"{last_sp_1y}원", round(mid["1Y"].iloc[-1] - mid["1Y"].iloc[-2], ndigits=3))
-
+col1.metric("우선주", f"{price_pref[-1]}원", (price_pref[-1] - price_pref[-2]), ndigits=3))
+col2.metric("본주", f"{price_comm[-1]}원", (price_comm[-1] - price_comm[-2]), ndigits=3))
+col3.metric("비율", f"{ratio_last[-1]}%", (ratio_last[-1] - ratio_last[-2], ndigits=3))
 
 
 st.markdown("---")   # 구분 가로선
