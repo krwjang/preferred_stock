@@ -12,7 +12,7 @@ n_days = 365 * 3
 now = datetime.now().date() + timedelta(days=1)
 ago = now - timedelta(days=n_days)
 
-ticker_pref = "005387"
+ticker_pref = "005385"
 ticker_comm = "005380"
 
 ######################################################
