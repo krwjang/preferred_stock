@@ -56,15 +56,12 @@ st.plotly_chart(fig)
 
 
 # 전광판
-
-from = now - timedelta(days=5)
-price_pref = fdr.DataReader(ticker_pref, start=from)["Close"]
-price_comm = fdr.DataReader(ticker_comm, start=from)["Close"]
+from_day = now - timedelta(days=5)
+price_pref = fdr.DataReader(ticker_pref, start=from_day)["Close"]
+price_comm = fdr.DataReader(ticker_comm, start=from_day)["Close"]
 ratio_last = price_pref / price_comm
 
 col1, col2, col3 = st.columns(3)
-
-
 
 col1.metric("우선주", f"{price_pref[-1]}원", (price_pref[-1] - price_pref[-2]), ndigits=3))
 col2.metric("본주", f"{price_comm[-1]}원", (price_comm[-1] - price_comm[-2]), ndigits=3))
