@@ -117,7 +117,8 @@ fig_sum.update_layout(barmode='overlay')
 # Reduce opacity to see both histograms
 fig_sum.update_traces(opacity=0.50)
 
-st.write("기간별 비율 분포 (x축: 비율 / y축: 관측수)")
+st.subheader("기간별 비율 분포 ")
+st.write("x축: 비율 / y축: 관측수")
 st.plotly_chart(fig_sum)
 
 
@@ -129,6 +130,6 @@ st.markdown("---")   # 구분 가로선
 
 
 
-st.subheader("삼성전자우/삼성전자 가격비율 데이터")
+st.subheader("일자별 가격비율 데이터")
 st.write("개별종목의 시고저종 시점의 비율임 (OHLCV_avg : 당일 시고저종 평균값)")
 st.dataframe(df.sort_index(ascending=False))
