@@ -107,10 +107,10 @@ x120 = df.tail(120)["OHLCV_avg"]
 x250 = df.tail(250)["OHLCV_avg"]
 
 fig_sum = go.Figure()
-fig_sum.add_trace(go.Histogram(x=x20, name="1달"))
-fig_sum.add_trace(go.Histogram(x=x60, name="분기"))
-fig_sum.add_trace(go.Histogram(x=x120, name="반기"))
 fig_sum.add_trace(go.Histogram(x=x250, name="1년"))
+fig_sum.add_trace(go.Histogram(x=x120, name="반기"))
+fig_sum.add_trace(go.Histogram(x=x60, name="분기"))
+fig_sum.add_trace(go.Histogram(x=x20, name="1달"))
 
 # Overlay both histograms
 fig_sum.update_layout(barmode='overlay')
