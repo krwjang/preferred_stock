@@ -100,6 +100,9 @@ summ.index = ["고점", "평균", "저점", "레인지", "표준편차"]
 st.dataframe(summ)
 
 
+st.markdown("---")   # 구분 가로선
+
+
 #요약그래프
 x20 = df.tail(20)["OHLCV_avg"]
 x60 = df.tail(60)["OHLCV_avg"]
