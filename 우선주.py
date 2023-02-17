@@ -6,6 +6,7 @@ pd.options.plotting.backend = "plotly"
 import plotly.graph_objects as go
 
 
+
 # 기초변수 설정 ######################################
 n_days = 365 * 3
 now = datetime.now().date() + timedelta(days=1)
@@ -95,10 +96,33 @@ day250 = get_summ(df, 250)
 summ = pd.concat([day20, day60, day120, day250], axis=1, ignore_index=True)
 summ.columns = ["20 거래일(1달)", "60 거래일(분기)", "120 거래일(반기)", "250 거래일(연)"]
 summ.index = ["고점", "평균", "저점", "레인지", "표준편차"]
-
+# 요약표
 st.dataframe(summ)
-    
 
+
+#요약그래프
+x20 = df.tail(20)["OHLCV_avg"]
+x60 = df.tail(60)["OHLCV_avg"]
+x120 = df.tail(120)["OHLCV_avg"]
+x250 = df.tail(250)["OHLCV_avg"]
+
+fig_sum = go.Figure()
+fig_sum.add_trace(go.Histogram(x=x20))
+fig_sum.add_trace(go.Histogram(x=x60))
+fig_sum.add_trace(go.Histogram(x=x120))
+fig_sum.add_trace(go.Histogram(x=x250))
+
+# Overlay both histograms
+fig_sum.update_layout(barmode='overlay')
+# Reduce opacity to see both histograms
+fig_sum.update_traces(opacity=0.50)
+
+st.plotly_chart(fig_sum)
+
+
+
+    
+    
 
 st.markdown("---")   # 구분 가로선
 
