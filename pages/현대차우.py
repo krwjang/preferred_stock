@@ -118,7 +118,7 @@ fig_sum.add_trace(go.Histogram(x=x20, name="1달"))
 # Overlay both histograms
 fig_sum.update_layout(barmode='overlay')
 # Reduce opacity to see both histograms
-fig_sum.update_traces(opacity=0.50, nbinsx=30)
+fig_sum.update_traces(opacity=0.50, nbinsx=20)
 
 st.subheader("기간별 비율 분포 ")
 st.write("x축: 비율 / y축: 관측수")
