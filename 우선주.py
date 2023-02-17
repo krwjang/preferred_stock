@@ -117,6 +117,7 @@ fig_sum.update_layout(barmode='overlay')
 # Reduce opacity to see both histograms
 fig_sum.update_traces(opacity=0.50)
 
+st.write("기간별 비율 분포 (x축: 비율 / y축: 관측수)")
 st.plotly_chart(fig_sum)
 
 
