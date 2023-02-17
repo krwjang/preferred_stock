@@ -1,4 +1,5 @@
 import streamlit as st
+from datetime import datetime, timedelta
 import pandas as pd
 import FinanceDataReader as fdr
 pd.options.plotting.backend = "plotly"
