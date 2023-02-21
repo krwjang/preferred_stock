@@ -24,9 +24,9 @@ def read_price(preferred, common, start, end):
     우선주티커, 본주티커, 불러오기 시작일자
     '''
     preferred = fdr.DataReader(preferred, start=start, end=end)[['Open', 'High', 'Low', 'Close']]
-    preferred["OHLC_avg"] = (ratio.Open + ratio.High + ratio.Low + ratio.Close) / 4
+    preferred["OHLC_avg"] = (preferred.Open + preferred.High + preferred.Low + preferred.Close) / 4
     common = fdr.DataReader(common, start=start, end=end)[['Open', 'High', 'Low', 'Close']]
-    common["OHLC_avg"] = (ratio.Open + ratio.High + ratio.Low + ratio.Close) / 4
+    common["OHLC_avg"] = (common.Open + common.High + common.Low + common.Close) / 4
 
     ratio = preferred / common
 
