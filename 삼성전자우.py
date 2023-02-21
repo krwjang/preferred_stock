@@ -26,7 +26,7 @@ def read_price(preferred, common, start, end):
     preferred = fdr.DataReader(preferred, start=start, end=end)[['Open', 'High', 'Low', 'Close']]
     common = fdr.DataReader(common, start=start, end=end)[['Open', 'High', 'Low', 'Close']]
     ratio = preferred / common
-    ratio["OHLCV_avg"] = (ratio.Open + ratio.High + ratio.Low + ratio.Close) / 4
+    ratio["OHLC_avg"] = (ratio.Open + ratio.High + ratio.Low + ratio.Close) / 4
 
     return ratio
 
@@ -82,10 +82,10 @@ st.subheader("기간별 가격비율 요약")
 # 아래 고점 저점은 시고저종이 아니라 기간 관측값에서 고점저점임  <-- 매우중요
 def get_summ(df, window):
     high = df.rolling(window).max().iloc[-1].max()
-    mean = df.rolling(window).mean()["OHLCV_avg"].iloc[-1]
+    mean = df.rolling(window).mean()["OHLC_avg"].iloc[-1]
     low = df.rolling(window).min().iloc[-1].min()
     range = high - low
-    std = df.rolling(window).std()["OHLCV_avg"].iloc[-1]
+    std = df.rolling(window).std()["OHLC_avg"].iloc[-1]
 
     return pd.DataFrame([high, mean, low, range, std])
 
@@ -104,10 +104,10 @@ st.markdown("---")   # 구분 가로선
 
 
 #요약그래프
-x20 = df.tail(20)["OHLCV_avg"]
-x60 = df.tail(60)["OHLCV_avg"]
-x120 = df.tail(120)["OHLCV_avg"]
-x250 = df.tail(250)["OHLCV_avg"]
+x20 = df.tail(20)["OHLC_avg"]
+x60 = df.tail(60)["OHLC_avg"]
+x120 = df.tail(120)["OHLC_avg"]
+x250 = df.tail(250)["OHLC_avg"]
 
 fig_sum = go.Figure()
 fig_sum.add_trace(go.Histogram(x=x250, name="1년"))
@@ -134,5 +134,5 @@ st.markdown("---")   # 구분 가로선
 
 
 st.subheader("일자별 가격비율 데이터")
-st.write("개별종목의 시고저종 시점의 비율임 (OHLCV_avg : 당일 시고저종 평균값)")
+st.write("개별종목의 시고저종 시점의 비율임 (OHLC_avg : 당일 시고저종 평균값)")
 st.dataframe(df.sort_index(ascending=False))
