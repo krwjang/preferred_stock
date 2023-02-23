@@ -86,11 +86,11 @@ st.subheader("기간별 가격비율 요약")
 
 # 아래 고점 저점은 시고저종이 아니라 기간 관측값에서 고점저점임  <-- 매우중요
 def get_summ(df, window):
-    high = df.rolling(window).max().iloc[-1].max()
-    mean = df.rolling(window).mean()["OHLC_avg"].iloc[-1]
-    low = df.rolling(window).min().iloc[-1].min()
+    high = df[["Open", "Close"]].rolling(window).max().iloc[-1].max()
+    mean = df["OHLC_avg"].rolling(window).mean().iloc[-1]
+    low = df[["Open", "Close"]].rolling(window).min().iloc[-1].min()
     range = high - low
-    std = df.rolling(window).std()["OHLC_avg"].iloc[-1]
+    std = df["OHLC_avg"].rolling(window).std().iloc[-1]
 
     return pd.DataFrame([high, mean, low, range, std])
 
