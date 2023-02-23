@@ -52,8 +52,10 @@ st.write('''
 fig = go.Figure(data=[go.Candlestick(
     increasing_line_color= 'red', decreasing_line_color= 'blue',
     x=df.index,
-    open=df['Open'], high=df['High'],
-    low=df['Low'], close=df['Close']
+    open=df['Open'], 
+#     high=df['High'],
+#     low=df['Low'], 
+    close=df['Close']
 )])
 fig.update_layout(xaxis_rangeslider_visible=False)
 fig.update_layout(hovermode="x unified")
