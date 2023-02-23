@@ -53,8 +53,8 @@ fig = go.Figure(data=[go.Candlestick(
     increasing_line_color= 'red', decreasing_line_color= 'blue',
     x=df.index,
     open=df['Open'], 
-#     high=df['High'],
-#     low=df['Low'], 
+    high=df['Open'],
+    low=df['Open'], 
     close=df['Close']
 )])
 fig.update_layout(xaxis_rangeslider_visible=False)
