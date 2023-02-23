@@ -114,7 +114,7 @@ x120 = df.tail(120)["OHLC_avg"]
 x250 = df.tail(250)["OHLC_avg"]
 
 fig_sum = go.Figure()
-fig_sum.add_trace(go.Histogram(x=x250, name="1년", marker = list("red")))
+fig_sum.add_trace(go.Histogram(x=x250, name="1년", marker = list(color = 'green')))
 fig_sum.add_trace(go.Histogram(x=x120, name="반기"))
 fig_sum.add_trace(go.Histogram(x=x60, name="분기"))
 fig_sum.add_trace(go.Histogram(x=x20, name="1달"))
