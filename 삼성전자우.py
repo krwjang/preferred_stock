@@ -12,6 +12,7 @@ n_days = 365 * 3
 now = datetime.now().date() + timedelta(days=1)
 ago = now - timedelta(days=n_days)
 
+title_name = "삼성전자우/삼성전자"
 ticker_pref = "005935"
 ticker_comm = "005930"
 
@@ -36,13 +37,13 @@ df = read_price(ticker_pref, ticker_comm, start=ago, end=now)
 
 
 
-st.title("삼성전자우/삼성전자 페어")
+st.title(f"{title_name} 페어")
 
 
 st.markdown("---")   # 구분 가로선
 
 
-st.subheader("삼성전자우/삼성전자 가격비율 추이")
+st.subheader(f"{title_name} 가격비율 추이")
 st.write('''
     개별종목의 시가와 종가 시점의 비율임 (고가와 저가는 시차가 발생하므로 제외)   
     마우스 드래그 : 확대 / 더블클릭 : 축소
