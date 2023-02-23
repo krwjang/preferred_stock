@@ -8,6 +8,7 @@ import plotly.graph_objects as go
 
 
 # 기초변수 설정 ######################################
+# VERSION : 1.00
 n_days = 365 * 3
 now = datetime.now().date() + timedelta(days=1)
 ago = now - timedelta(days=n_days)
@@ -45,7 +46,7 @@ st.markdown("---")   # 구분 가로선
 
 st.subheader(f"{title_name} 가격비율 추이")
 st.write('''
-    개별종목의 시가와 종가 시점의 비율임 (고가와 저가는 시차가 발생하므로 제외)   
+    개별종목의 시가와 종가 시점의 비율임 (고가와 저가는 종목간 시차가 발생하므로 제외)   
     마우스 드래그 : 확대 / 더블클릭 : 축소
     '''
     )
@@ -86,11 +87,11 @@ st.subheader("기간별 가격비율 요약")
 
 # 아래 고점 저점은 시고저종이 아니라 기간 관측값에서 고점저점임  <-- 매우중요
 def get_summ(df, window):
-    high = df.rolling(window).max().iloc[-1].max()
-    mean = df.rolling(window).mean()["OHLC_avg"].iloc[-1]
-    low = df.rolling(window).min().iloc[-1].min()
+    high = df[["Open", "Close"]].rolling(window).max().iloc[-1].max()
+    mean = df["OHLC_avg"].rolling(window).mean().iloc[-1]
+    low = df[["Open", "Close"]].rolling(window).min().iloc[-1].min()
     range = high - low
-    std = df.rolling(window).std()["OHLC_avg"].iloc[-1]
+    std = df["OHLC_avg"].rolling(window).std().iloc[-1]
 
     return pd.DataFrame([high, mean, low, range, std])
 
