@@ -12,8 +12,9 @@ n_days = 365 * 3
 now = datetime.now().date() + timedelta(days=1)
 ago = now - timedelta(days=n_days)
 
-ticker_pref = "003555"
-ticker_comm = "003550"
+title_name = "LG전자우/LG전자"
+ticker_pref = "066575"
+ticker_comm = "066570"
 
 ######################################################
 
@@ -24,9 +25,11 @@ def read_price(preferred, common, start, end):
     우선주티커, 본주티커, 불러오기 시작일자
     '''
     preferred = fdr.DataReader(preferred, start=start, end=end)[['Open', 'High', 'Low', 'Close']]
+    preferred["OHLC_avg"] = (preferred.Open + preferred.High + preferred.Low + preferred.Close) / 4
     common = fdr.DataReader(common, start=start, end=end)[['Open', 'High', 'Low', 'Close']]
+    common["OHLC_avg"] = (common.Open + common.High + common.Low + common.Close) / 4
+
     ratio = preferred / common
-    ratio["OHLCV_avg"] = (ratio.Open + ratio.High + ratio.Low + ratio.Close) / 4
 
     return ratio
 
@@ -34,15 +37,15 @@ df = read_price(ticker_pref, ticker_comm, start=ago, end=now)
 
 
 
-st.title("LG전자우/LG전자 페어")
+st.title(f"{title_name} 페어")
 
 
 st.markdown("---")   # 구분 가로선
 
 
-st.subheader("LG전자우/LG전자 가격비율 추이")
+st.subheader(f"{title_name} 가격비율 추이")
 st.write('''
-    개별종목의 시고저종 시점의 비율임 (비율의 시고저종 아님)   
+    개별종목의 시가와 종가 시점의 비율임 (고가와 저가는 시차가 발생하므로 제외)   
     마우스 드래그 : 확대 / 더블클릭 : 축소
     '''
     )
@@ -50,8 +53,10 @@ st.write('''
 fig = go.Figure(data=[go.Candlestick(
     increasing_line_color= 'red', decreasing_line_color= 'blue',
     x=df.index,
-    open=df['Open'], high=df['High'],
-    low=df['Low'], close=df['Close']
+    open=df['Open'], 
+    high=df['Open'],
+    low=df['Open'], 
+    close=df['Close']
 )])
 fig.update_layout(xaxis_rangeslider_visible=False)
 fig.update_layout(hovermode="x unified")
@@ -82,10 +87,10 @@ st.subheader("기간별 가격비율 요약")
 # 아래 고점 저점은 시고저종이 아니라 기간 관측값에서 고점저점임  <-- 매우중요
 def get_summ(df, window):
     high = df.rolling(window).max().iloc[-1].max()
-    mean = df.rolling(window).mean()["OHLCV_avg"].iloc[-1]
+    mean = df.rolling(window).mean()["OHLC_avg"].iloc[-1]
     low = df.rolling(window).min().iloc[-1].min()
     range = high - low
-    std = df.rolling(window).std()["OHLCV_avg"].iloc[-1]
+    std = df.rolling(window).std()["OHLC_avg"].iloc[-1]
 
     return pd.DataFrame([high, mean, low, range, std])
 
@@ -104,10 +109,10 @@ st.markdown("---")   # 구분 가로선
 
 
 #요약그래프
-x20 = df.tail(20)["OHLCV_avg"]
-x60 = df.tail(60)["OHLCV_avg"]
-x120 = df.tail(120)["OHLCV_avg"]
-x250 = df.tail(250)["OHLCV_avg"]
+x20 = df.tail(20)["OHLC_avg"]
+x60 = df.tail(60)["OHLC_avg"]
+x120 = df.tail(120)["OHLC_avg"]
+x250 = df.tail(250)["OHLC_avg"]
 
 fig_sum = go.Figure()
 fig_sum.add_trace(go.Histogram(x=x250, name="1년"))
@@ -118,7 +123,7 @@ fig_sum.add_trace(go.Histogram(x=x20, name="1달"))
 # Overlay both histograms
 fig_sum.update_layout(barmode='overlay')
 # Reduce opacity to see both histograms
-fig_sum.update_traces(opacity=0.50, nbinsx=20)
+fig_sum.update_traces(opacity=0.75, nbinsx=20)
 
 st.subheader("기간별 비율 분포 ")
 st.write("x축: 비율 / y축: 관측수")
@@ -134,5 +139,5 @@ st.markdown("---")   # 구분 가로선
 
 
 st.subheader("일자별 가격비율 데이터")
-st.write("개별종목의 시고저종 시점의 비율임 (OHLCV_avg : 당일 시고저종 평균값)")
-st.dataframe(df.sort_index(ascending=False))
+st.write("OHLC_avg : 개별종목의 당일 시가, 고가, 저가, 종가 평균값의 비율")
+st.dataframe(df[["Open", "Close", "OHLC_avg"]].sort_index(ascending=False))
