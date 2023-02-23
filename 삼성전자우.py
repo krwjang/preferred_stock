@@ -44,7 +44,7 @@ st.markdown("---")   # 구분 가로선
 
 st.subheader("삼성전자우/삼성전자 가격비율 추이")
 st.write('''
-    개별종목의 시고저종 시점의 비율임 (비율의 시고저종 아님)   
+    개별종목의 시가와 종가 시점의 비율임 (고가와 저가는 시차가 발생하므로 제외)   
     마우스 드래그 : 확대 / 더블클릭 : 축소
     '''
     )
@@ -138,5 +138,5 @@ st.markdown("---")   # 구분 가로선
 
 
 st.subheader("일자별 가격비율 데이터")
-st.write("개별종목의 시고저종 시점의 비율임 (OHLC_avg : 당일 시고저종 평균값)")
-st.dataframe(df.sort_index(ascending=False))
+st.write("OHLC_avg : 개별종목의 당일 시가, 고가, 저가, 종가 평균값의 비율")
+st.dataframe(df[["Open", "Close", "OHLC_avg"]].sort_index(ascending=False))
