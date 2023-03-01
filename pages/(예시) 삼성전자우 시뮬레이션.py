@@ -36,7 +36,7 @@ start_date = "2010-01-01"
 ratio = 삼성전자우 / 삼성전자
 ratio = ratio[["Open", "High", "Low", "Close", "Volume"]]
 
-fig_1 = ratio.vbt.plot()
+fig_1 = ratio[["Open", "Close"].vbt.plot()
 st.plotly_chart(fig_1)
 
 
