@@ -41,7 +41,7 @@ st.plotly_chart(fig_1)
 
 
 st.markdown("---")   # 구분 가로선
-st.subheader("신호생성 및 시뮬레이션 ")
+st.subheader("신호생성 및 시뮬레이션 예시")
 st.write('''
     - 파라메터 : 룩백 기간 50일, 표준편차 2배 
     - 1회 거래비용 : 0.5% (2종목 왕복거래)
@@ -92,7 +92,7 @@ st.plotly_chart(fig_dd)
 
 
 st.markdown("---")   # 구분 가로선
-st.subheader("파라메터 테스트 결과")
+st.subheader("파라메터 테스트 결과 참고")
 st.write('''
     이동평균 길이와 표준편차 배수에 따른 샤프지수
     ''')
@@ -161,6 +161,10 @@ st.markdown("---")   # 구분 가로선
 st.subheader("수익률 상위 10개 파라메터 ")
 
 st.dataframe(comb_stats_df.sort_values(by="Total Return [%]", ascending=False).head(10))
+
+st.write('''
+    본 테스트는 거래전략 구축을 위한 하나의 예시이며 과거 데이터에 오버피팅 가능성이 있어 미래 수익률을 보장하지 않습니다.
+    ''')
 
 
 
