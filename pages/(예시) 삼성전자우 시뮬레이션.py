@@ -28,7 +28,7 @@ start_date = "2010-01-01"
 삼성전자우 = fdr.DataReader('005935', start_date)
 삼성전자 = fdr.DataReader('005930', start_date)
 
-fig_1 = ratio.vbt.ohlcv().plot()
+fig_1 = ratio.vbt.plot()
 st.plotly_chart(fig_1)
 
 
