@@ -2,6 +2,10 @@ import streamlit as st
 import pandas as pd
 import vectorbt as vbt
 import FinanceDataReader as fdr
+import plotly.graph_objects as go
+pd.options.plotting.backend = "plotly"
+
+
 
 
 st.title("삼성전자우/삼성전자 패어트레이딩 예시")
