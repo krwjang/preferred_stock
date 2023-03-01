@@ -66,7 +66,7 @@ pf = vbt.Portfolio.from_signals(
     short_entries = clean_short_enter,
     short_exits = clean_short_exit,
     # 왕복 수수료 및 슬립피지 0.5%
-    fees = 0.0025
+    fees = 0.0025,
     # sl_stop = 0.10,  # 스탑로스
     freq = 'd'
 )
