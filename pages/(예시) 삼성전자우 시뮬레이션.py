@@ -155,12 +155,9 @@ st.plotly_chart(fig_3)
 # st.plotly_chart(fig_4)
 
 
-         
-         
-st.markdown("---")   # 구분 가로선
-st.subheader("수익률 상위 10개 파라메터 ")
+st.subheader(" ")
 st.write('''
-    이동평균(MA) 길이와 표준편차(SD) 배수 조합에 따른 결과치
+    수익률 상위 10개 파라메터 조합
     ''') 
 
 st.dataframe(comb_stats_df.sort_values(by="Total Return [%]", ascending=False).head(10))
