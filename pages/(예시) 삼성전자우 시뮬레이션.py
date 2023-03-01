@@ -76,18 +76,17 @@ pf = vbt.Portfolio.from_signals(
 fig_pf = pf.plot()
 st.plotly_chart(fig_pf)
 
+st.write('''
+    거래결과 요약
+    ''')
 df = pd.DataFrame(pf.stats())
 st.dataframe(df)
 
-
+st.write('''
+    드로우다운
+    ''')
 fig_dd = pf.plot(subplots=["drawdowns", "underwater"])
 st.plotly_chart(fig_dd)
-
-
-
-
-
-
 
 
 
