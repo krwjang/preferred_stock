@@ -48,6 +48,16 @@ window = 50
 std = 2
 ########################
 
+
+
+
+st.markdown("---")   # 구분 가로선
+st.subheader("파라메터 테스트")
+st.write('''
+    이동평균 길이와 표준편차 배수에 따른 샤프지수 결과
+    ''')
+
+
 def test_band(window=50, alpha=2):
     bband = vbt.BBANDS.run(ratio["Open"], window=window, alpha=alpha)
     
@@ -80,8 +90,8 @@ def test_band(window=50, alpha=2):
 
 from itertools import product
 
-MA = range(10, 200, 10)
-SD = [0.5, 1, 1.5, 2, 2.5, 3, 3.5]
+MA = range(10, 210, 10)
+SD = [0.5, 1, 1.5, 2, 2.5, 3]
 comb = list(product(MA, SD))
 
 comb_stats = [
@@ -99,7 +109,21 @@ fig_3 = comb_stats_df['Sharpe Ratio'].vbt.heatmap()
 st.plotly_chart(fig_3)
 
 
+         
+st.markdown("---")   # 구분 가로선
+st.write('''
+    이동평균 길이와 표준편차 배수에 따른 소티노지수 결과
+    ''') 
+comb_stats_df['Sortino Ratio'].vbt.heatmap().show()
 
+         
+         
+st.markdown("---")   # 구분 가로선
+st.subheader("수익률 상위 10개 파라메터 ")
+st.write('''
+    이동평균 길이와 표준편차 배수에 따른 소티노지수 결과
+
+st.dataframe(comb_stats_df.sort_values(by="Total Return [%]", ascending=False).head(10))
 
 
 
