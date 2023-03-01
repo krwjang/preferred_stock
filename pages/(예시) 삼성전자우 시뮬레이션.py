@@ -43,7 +43,8 @@ st.plotly_chart(fig_1)
 st.markdown("---")   # 구분 가로선
 st.subheader("신호생성 및 시뮬레이션 ")
 st.write('''
-    - 1회 거래비용 0.5% (2종목 왕복거래)
+    - 파라메터 : 룩백 기간 50일, 표준편차 2배 
+    - 1회 거래비용 : 0.5% (2종목 왕복거래)
     ''')
 
 # 파라메터 ##############
@@ -75,12 +76,12 @@ pf = vbt.Portfolio.from_signals(
 fig_pf = pf.plot()
 st.plotly_chart(fig_pf)
 
-
-
 df = pd.DataFrame(pf.stats())
 st.dataframe(df)
 
 
+fig_dd = pf.plot(subplots=["drawdowns", "underwater"])
+st.plotly_chart(fig_dd)
 
 
 
