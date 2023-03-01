@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 import vectorbt as vbt
+import FinanceDataReader as fdr
 
 
 st.title("삼성전자우/삼성전자 패어트레이딩 예시")
@@ -28,7 +29,10 @@ start_date = "2010-01-01"
 삼성전자우 = fdr.DataReader('005935', start_date)
 삼성전자 = fdr.DataReader('005930', start_date)
 
-fig_1 = ratio.vbt.plot()
+ratio = 삼성전자우 / 삼성전자
+ratio = ratio[["Open", "High", "Low", "Close", "Volume"]]
+
+fig_1 = ratio.vbt.ohlcv().plot()
 st.plotly_chart(fig_1)
 
 
