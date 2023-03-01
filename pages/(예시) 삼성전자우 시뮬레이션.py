@@ -20,3 +20,15 @@ st.write('''
     '''
     )
 
+st.markdown("---")   # 구분 가로선
+
+st.subheader("가격비율")
+
+start_date = "2010-01-01"
+삼성전자우 = fdr.DataReader('005935', start_date)
+삼성전자 = fdr.DataReader('005930', start_date)
+
+fig_1 = ratio.vbt.ohlcv().plot()
+st.plotly_chart(fig_1)
+
+
