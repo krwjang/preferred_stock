@@ -43,7 +43,7 @@ st.plotly_chart(fig_1)
 st.markdown("---")   # 구분 가로선
 st.subheader("신호생성 및 시뮬레이션 ")
 st.write('''
-    - 거래비용 : 2종목 왕복 0.5%
+    - 1회 거래비용 0.5% (2종목 왕복거래)
     ''')
 
 # 파라메터 ##############
@@ -70,6 +70,12 @@ pf = vbt.Portfolio.from_signals(
     # sl_stop = 0.10,  # 스탑로스
     freq = 'd'
 )
+
+
+fig_pf = pf.plot()
+st.plotly_chart(fig_pf)
+
+
 
 df = pd.DataFrame(pf.stats())
 st.dataframe(df)
