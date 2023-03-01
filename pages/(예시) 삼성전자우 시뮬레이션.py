@@ -61,10 +61,10 @@ short_exit = bband.middle_crossed_above(ratio["Open"])
 # 시그널은 시가기준, 거래수행은 종가기준으로 수행
 pf = vbt.Portfolio.from_signals(
     close = ratio["Close"],   # 종가 기준 
-    entries = clean_long_enter,
-    exits = clean_long_exit,
-    short_entries = clean_short_enter,
-    short_exits = clean_short_exit,
+    entries = long_enter,
+    exits = long_exit,
+    short_entries = short_enter,
+    short_exits = short_exit,
     # 왕복 수수료 및 슬립피지 0.5%
     fees = 0.0025,
     # sl_stop = 0.10,  # 스탑로스
