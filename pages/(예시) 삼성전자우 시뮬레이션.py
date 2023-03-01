@@ -1,4 +1,7 @@
+import streamlit as st
+import pandas as pd
 import vectorbt as vbt
+
 
 st.title("삼성전자우/삼성전자 패어트레이딩 예시")
 
