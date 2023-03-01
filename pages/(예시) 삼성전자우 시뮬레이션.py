@@ -4,6 +4,7 @@ import vectorbt as vbt
 import FinanceDataReader as fdr
 import plotly.graph_objects as go
 pd.options.plotting.backend = "plotly"
+vbt.settings.set_theme(theme="dark")
 
 
 
