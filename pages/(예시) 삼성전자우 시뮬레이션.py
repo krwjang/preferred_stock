@@ -41,22 +41,56 @@ st.plotly_chart(fig_1)
 
 
 st.markdown("---")   # 구분 가로선
-st.subheader("신호생성")
+st.subheader("신호생성 및 시뮬레이션 ")
 
 # 파라메터 ##############
 window = 50
 std = 2
 ########################
 
+bband = vbt.BBANDS.run(ratio["Open"], window=window, alpha=std)
+
+long_enter = bband.lower_above(ratio["Open"])
+short_enter = bband.upper_below(ratio["Open"])
+long_exit = bband.middle_crossed_below(ratio["Open"])
+short_exit = bband.middle_crossed_above(ratio["Open"])
+
+def plot_signal(bband, enter, exit):
+    fig = bband.plot()  
+    enter.vbt.signals.plot_as_entries(ratio["Open"], fig=fig)  
+    exit.vbt.signals.plot_as_exits(ratio["Open"], fig=fig)  
+    return fig
+
+# 깔끔한 신호 생성
+clean_long_enter, clean_long_exit = long_enter.vbt.signals.clean(long_exit)  
+clean_short_enter, clean_short_exit = short_enter.vbt.signals.clean(short_exit)  
+
+# 롱시그널 시각화
+fig_long = plot_signal(bband, clean_long_enter, clean_long_exit)
+st.plotly_chart(fig_long)
+
+# 숏시그널 시각화
+fig_short = plot_signal(bband, clean_short_enter, clean_short_exit)
+st.plotly_chart(fig_short)
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 st.markdown("---")   # 구분 가로선
-st.subheader("파라메터 테스트")
+st.subheader("파라메터 테스트 결과")
 st.write('''
-    이동평균 길이와 표준편차 배수에 따른 샤프지수 결과
+    이동평균 길이와 표준편차 배수에 따른 샤프지수
     ''')
-
 
 def test_band(window=50, alpha=2):
     bband = vbt.BBANDS.run(ratio["Open"], window=window, alpha=alpha)
@@ -110,7 +144,7 @@ st.plotly_chart(fig_3)
 
 
 # st.write('''
-#     이동평균 길이와 표준편차 배수에 따른 소티노지수 결과
+#     이동평균(MA) 길이와 표준편차(SD) 배수에 따른 소티노지수 결과
 #     ''') 
 # fig_4 = comb_stats_df['Sortino Ratio'].vbt.heatmap().show()
 # st.plotly_chart(fig_4)
