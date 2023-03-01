@@ -43,12 +43,63 @@ st.plotly_chart(fig_1)
 st.markdown("---")   # 구분 가로선
 st.subheader("신호생성")
 
+# 파라메터 ##############
 window = 50
 std = 2
+########################
+
+def test_band(window=50, alpha=2):
+    bband = vbt.BBANDS.run(ratio["Open"], window=window, alpha=alpha)
+    
+    long_enter = bband.lower_above(ratio["Open"])
+    short_enter = bband.upper_below(ratio["Open"])
+    long_exit = bband.middle_crossed_below(ratio["Open"])
+    short_exit = bband.middle_crossed_above(ratio["Open"])
+    
+    # 시그널은 시가기준, 거래수행은 종가기준으로 수행
+    pf = vbt.Portfolio.from_signals(
+        close = ratio["Close"],   # 종가 기준 
+        entries = long_enter,
+        exits = long_exit,
+        short_entries = short_enter,
+        short_exits = short_exit,
+        # fees = 0.0025,   # 왕복 수수료 및 슬립피지 0.5%
+        fees = ((0.015 + 0.1) / 100) * 2,   # (뱅키스 0.015% + 슬리피지 0.1%) * 2종목 = 0.23%
+        freq = 'd'
+    )
+
+    return pf.stats([
+        'total_return', 
+        'total_trades', 
+        'win_rate', 
+        'expectancy',
+        'sharpe_ratio',
+        'calmar_ratio',
+        'sortino_ratio'  
+    ])
+
+from itertools import product
+
+MA = range(10, 200, 10)
+SD = [0.5, 1, 1.5, 2, 2.5, 3, 3.5]
+comb = list(product(MA, SD))
+
+comb_stats = [
+    test_band(window=MA, alpha=SD)
+    for MA, SD in comb
+]
+
+comb_stats_df = pd.DataFrame(comb_stats)
+
+comb_stats_df.index = pd.MultiIndex.from_tuples(
+    comb, 
+    names=['MA', 'SD'])
+
+fig_3 = comb_stats_df['Sharpe Ratio'].vbt.heatmap()
+st.plotly_chart(fig_3)
 
 
-bband = vbt.BBANDS.run(ratio["Open"], window=window, alpha=std)
-fig_2 = bband.plot().show()
-st.plotly_chart(fig_2)
+
+
 
 
