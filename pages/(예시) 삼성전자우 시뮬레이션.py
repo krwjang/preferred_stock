@@ -42,6 +42,9 @@ st.plotly_chart(fig_1)
 
 st.markdown("---")   # 구분 가로선
 st.subheader("신호생성 및 시뮬레이션 ")
+st.write('''
+    - 거래비용 : 2종목 왕복 0.5%
+    ''')
 
 # 파라메터 ##############
 window = 50
@@ -55,25 +58,21 @@ short_enter = bband.upper_below(ratio["Open"])
 long_exit = bband.middle_crossed_below(ratio["Open"])
 short_exit = bband.middle_crossed_above(ratio["Open"])
 
-def plot_signal(bband, enter, exit):
-    fig = bband.plot()  
-    enter.vbt.signals.plot_as_entries(ratio["Open"], fig=fig)  
-    exit.vbt.signals.plot_as_exits(ratio["Open"], fig=fig)  
-    return fig
+# 시그널은 시가기준, 거래수행은 종가기준으로 수행
+pf = vbt.Portfolio.from_signals(
+    close = ratio["Close"],   # 종가 기준 
+    entries = clean_long_enter,
+    exits = clean_long_exit,
+    short_entries = clean_short_enter,
+    short_exits = clean_short_exit,
+    # fees = 0.0025,   # 왕복 수수료 및 슬립피지 0.5%
+    fees = 0.25 / 100
+    # sl_stop = 0.10,  # 스탑로스
+    freq = 'd'
+)
 
-# 깔끔한 신호 생성
-clean_long_enter, clean_long_exit = long_enter.vbt.signals.clean(long_exit)  
-clean_short_enter, clean_short_exit = short_enter.vbt.signals.clean(short_exit)  
-
-# 롱시그널 시각화
-fig_long = plot_signal(bband, clean_long_enter, clean_long_exit)
-st.plotly_chart(fig_long)
-
-# 숏시그널 시각화
-fig_short = plot_signal(bband, clean_short_enter, clean_short_exit)
-st.plotly_chart(fig_short)
-
-
+df = pd.DataFrame(pf.stats())
+st.dataframe(df)
 
 
 
