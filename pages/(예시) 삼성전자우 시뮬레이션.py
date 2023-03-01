@@ -4,8 +4,6 @@ import vectorbt as vbt
 import FinanceDataReader as fdr
 import plotly.graph_objects as go
 pd.options.plotting.backend = "plotly"
-vbt.settings.set_theme(theme="dark")
-
 
 
 
@@ -39,5 +37,18 @@ ratio = ratio[["Open", "High", "Low", "Close", "Volume"]]
 
 fig_1 = ratio[["Open", "Close"]].vbt.plot()
 st.plotly_chart(fig_1)
+
+
+
+st.markdown("---")   # 구분 가로선
+st.subheader("신호생성")
+
+window = 50
+std = 2
+
+
+bband = vbt.BBANDS.run(ratio["Open"], window=window, alpha=std)
+fig_2 = bband.plot().show()
+st.plotly_chart(fig_2)
 
 
