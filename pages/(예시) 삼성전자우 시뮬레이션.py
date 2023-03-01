@@ -120,8 +120,6 @@ comb_stats_df['Sortino Ratio'].vbt.heatmap().show()
          
 st.markdown("---")   # 구분 가로선
 st.subheader("수익률 상위 10개 파라메터 ")
-st.write('''
-    이동평균 길이와 표준편차 배수에 따른 소티노지수 결과
 
 st.dataframe(comb_stats_df.sort_values(by="Total Return [%]", ascending=False).head(10))
 
