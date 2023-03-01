@@ -109,12 +109,12 @@ fig_3 = comb_stats_df['Sharpe Ratio'].vbt.heatmap()
 st.plotly_chart(fig_3)
 
 
-         
-st.markdown("---")   # 구분 가로선
-st.write('''
-    이동평균 길이와 표준편차 배수에 따른 소티노지수 결과
-    ''') 
-comb_stats_df['Sortino Ratio'].vbt.heatmap().show()
+# st.write('''
+#     이동평균 길이와 표준편차 배수에 따른 소티노지수 결과
+#     ''') 
+# fig_4 = comb_stats_df['Sortino Ratio'].vbt.heatmap().show()
+# st.plotly_chart(fig_4)
+
 
          
          
