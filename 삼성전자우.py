@@ -9,7 +9,7 @@ import plotly.graph_objects as go
 
 # 기초변수 설정 ######################################
 # VERSION : 1.00
-n_days = 365 * 5
+n_days = 365 * 10
 now = datetime.now().date() + timedelta(days=1)
 ago = now - timedelta(days=n_days)
 
