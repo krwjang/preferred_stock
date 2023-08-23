@@ -50,10 +50,10 @@ st.write('''
     ''')
 
 # 파라메터 ##############
-# window = 50
-# std = 2
-window = 40
-std = 1 
+window = 50
+std = 2
+# window = 40
+# std = 1 
 ########################
 
 bband = vbt.BBANDS.run(ratio["Open"], window=window, alpha=std)
