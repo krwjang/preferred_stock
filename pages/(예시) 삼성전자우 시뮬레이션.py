@@ -53,7 +53,7 @@ st.write('''
 # window = 50
 # std = 2
 window = 40
-std = 1
+std = 1 
 ########################
 
 bband = vbt.BBANDS.run(ratio["Open"], window=window, alpha=std)
